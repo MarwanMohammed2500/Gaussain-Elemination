@@ -7,8 +7,8 @@ def get_input(dim):
     return np.array(coeffs, dtype = "float64") # --> Turns the list into a NumPy ndarray and returns it.
 
 def singularity(matrix, deg): # --> Checks the singularity of the matrix
-    mat = matrix[:, 0:deg]
-    det = np.linalg.det(mat)
+    mat = matrix[:, 0:deg] # --> To ignore the constants column
+    det = np.linalg.det(mat) # --> Calculates the determinant of the matrix
     if det == 0:
         return 0
     else:
@@ -25,7 +25,7 @@ def pivoting(matrix, deg): # --> turns the matrix into its R.E.F.
         while (i+n) <= (deg -1): # --> Loops over the following algorithm till the position is equal to the number of rows.
             pos = i + n # --> Position of the row to be operated on.
             x = matrix[pos, i]/pivot # --> get's the value which 
-            matrix[pos] = matrix[pos] - (matrix[i]*x)
+            matrix[pos] = matrix[pos] - (matrix[i]*x) # --> Does matrix operation on the target row to get the values below the pivot equal to 0.
             n += 1
     return matrix
 
@@ -44,7 +44,7 @@ def back_sub(reduced_matrix, deg): # Turns a reduced matrix into its R.R.E.F.
 
 
 def sys_sol():
-    deg = int(input("What's the dimension of the system?\n")) # Get's the degree of the system from the user.
+    deg = int(input("What's the dimension of the system?\n")) # Gets the degree of the system from the user.
     n = range(deg)
     # The next 2 lines gets the system from the user and checks its singularity.
     sys = get_input(deg)
